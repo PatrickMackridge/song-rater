@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SongSelect from './Components/SongSelect';
 import './styles/App.css';
 
 function App() {
@@ -11,15 +12,7 @@ function App() {
       <header className="App-header">
         Song Rater
       </header>
-      <div className="songSelect">
-        <label className="selectionLabel">Artist:
-          <input type="text" onChange={event => {setArtist(event.target.value)}} className="selectionBox"/>
-        </label>
-        <label className="selectionLabel">Song:
-          <input type="text" onChange={event => {setSong(event.target.value)}} className="selectionBox"/>
-        </label>
-      </div>
-        <button disabled={(!song || !artist)}>Get Song</button>
+      <SongSelect artist={artist} setArtist={setArtist} song={song} setSong={setSong}/>
     </div>
   );
 }
