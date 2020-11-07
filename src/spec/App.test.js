@@ -33,3 +33,21 @@ test('"Get Song" button is greyed out before artist and song title are inputted 
   fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
   expect(getSongButton).not.toBeDisabled();
 })
+
+test ('Clicking "Get Song" button fetches data about that song and displays it on screen', () => {
+  const { getByText, getByLabelText } = render(<App/>);
+
+  const getSongButton = getByText('Get Song').closest('button');
+  
+  const artistSearch = getByLabelText('Artist:');
+  const songSearch = getByLabelText('Song:');
+
+  fireEvent.change(artistSearch, {target: {value: 'Herbie Hancock'} });
+  fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
+  fireEvent.click(getSongButton);
+  
+  const artistName = getByText('Herbie Hancock');
+  const songName = getByText('Chameleon');
+  const albumName = getByText('Headhunters');
+  const albumImage = getByAltText('Album image');
+})
