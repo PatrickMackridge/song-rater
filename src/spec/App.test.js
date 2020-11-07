@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import App from '../App';
 
@@ -34,7 +34,7 @@ test('"Get Song" button is greyed out before artist and song title are inputted 
   expect(getSongButton).not.toBeDisabled();
 })
 
-test ('Clicking "Get Song" button fetches data about that song and displays it on screen', () => {
+test ('Clicking "Get Song" button fetches data about that song and displays it on screen', async () => {
   const { getByText, getByLabelText, findByText, findAllByAltText } = render(<App/>);
 
   const getSongButton = getByText('Get Song').closest('button');
@@ -45,9 +45,9 @@ test ('Clicking "Get Song" button fetches data about that song and displays it o
   fireEvent.change(artistSearch, {target: {value: 'Herbie Hancock'} });
   fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
   fireEvent.click(getSongButton);
-  
-  findByText('Herbie Hancock');
-  findByText('Chameleon');
-  findByText('Head Hunters');
-  findAllByAltText('Album artwork');
+
+  await findByText('Chameleon');
+  await findByText('By: Herbie Hancock');
+  await findByText('From the album: Head Hunters');
+  await findAllByAltText('Album artwork');
 })

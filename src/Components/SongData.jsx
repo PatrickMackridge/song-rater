@@ -7,8 +7,8 @@ function SongData(props) {
   return (
     <>
       <p>{songName}</p>
-      <p>By {artistName}</p>
-      <p>From the album {albumName}</p>
+      <p>By: {artistName}</p>
+      <p>From the album: {albumName}</p>
       <img src={albumImage} alt="Album artwork"/>
     </> 
   );

@@ -5,9 +5,6 @@ import './styles/App.css';
 
 function App() {
 
-  const [artist, setArtist] = useState('');
-  const [song, setSong] = useState('');
-
   const [artistName, setArtistName] = useState('');
   const [songName, setSongName] = useState('');
   const [albumName, setAlbumName] = useState('');
@@ -19,14 +16,10 @@ function App() {
     .then(res => {
       const track = res.track
 
-      console.log('Song:', track.name)
-      console.log('Artist:', track.artist.name)
-      console.log('Album:', track.album.title)
-      console.log(track.album.image[track.album.image.length -1]);
-
       setArtistName(track.artist.name);
       setSongName(track.name);
       setAlbumName(track.album.title);
+
       const imageURL = Object.keys(track.album.image[track.album.image.length -1])[0];
       setAlbumImage(track.album.image[track.album.image.length -1][imageURL]);
     });
@@ -37,7 +30,7 @@ function App() {
       <header className="App-header">
         Song Rater
       </header>
-      <SongSelect artist={artist} setArtist={setArtist} song={song} setSong={setSong} fetchSongData={fetchSongData}/>
+      <SongSelect fetchSongData={fetchSongData}/>
       <SongData artistName={artistName} songName={songName} albumName={albumName} albumImage={albumImage}/>
     </div>
   );

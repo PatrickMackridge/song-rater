@@ -1,8 +1,11 @@
 import '../styles/App.css';
+import { useState } from 'react';
 
 function SongSelect(props) {
 
-  const { artist, setArtist, song, setSong, fetchSongData } = props;
+  const { fetchSongData } = props;
+  const [artist, setArtist] = useState('');
+  const [song, setSong] = useState('');
   
   return (
     <>
