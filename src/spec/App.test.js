@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import App from '../App';
 
@@ -15,3 +15,19 @@ test('renders the choose artist and song title inputs', () => {
   expect(artistSearch).toBeInTheDocument();
   expect(songSearch).toBeInTheDocument();
 });
+
+test('"Get Song" button is greyed out before artist and song title are inputted and clickable after', () => {
+  const { getByText, getByLabelText } = render(<App/>);
+  
+  const getSongButton = getByText('Get Song').closest('button');
+  expect(getSongButton).toBeInTheDocument();
+
+  expect(getSongButton).toBeDisabled();
+
+  const artistSearch = getByLabelText('Artist:');
+  const songSearch = getByLabelText('Song:');
+  fireEvent.change(artistSearch, {target: {value: 'Herbie Hancock'} });
+  fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
+
+  expect(getSongButton).not.toBeDisabled();
+})
