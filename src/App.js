@@ -6,6 +6,12 @@ function App() {
       <header className="App-header">
         Song Rater
       </header>
+      <label>Artist:
+        <input type="text"/>
+      </label>
+      <label>Song:
+        <input type="text"/>
+      </label>
     </div>
   );
 }
