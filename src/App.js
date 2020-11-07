@@ -5,6 +5,7 @@ import './styles/App.css';
 
 function App() {
 
+  const [showSongData, toggleSongData] = useState(false)
   const [artistName, setArtistName] = useState('');
   const [songName, setSongName] = useState('');
   const [albumName, setAlbumName] = useState('');
@@ -14,6 +15,8 @@ function App() {
     const BASE_URL = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=2c57152be296550cb66b5e553208f12f"
     return fetch(`${BASE_URL}&artist=${artist}&track=${songName}&format=json`).then(res => res.json())
     .then(res => {
+
+      toggleSongData(true);
       const track = res.track
 
       setArtistName(track.artist.name);
@@ -31,7 +34,7 @@ function App() {
         Song Rater
       </header>
       <SongSelect fetchSongData={fetchSongData}/>
-      <SongData artistName={artistName} songName={songName} albumName={albumName} albumImage={albumImage}/>
+  {showSongData && <SongData artistName={artistName} songName={songName} albumName={albumName} albumImage={albumImage}/> }
     </div>
   );
 }

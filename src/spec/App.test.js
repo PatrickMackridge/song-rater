@@ -35,7 +35,11 @@ test('"Get Song" button is greyed out before artist and song title are inputted 
 })
 
 test ('Clicking "Get Song" button fetches data about that song and displays it on screen', async () => {
-  const { getByText, getByLabelText, findByText, findAllByAltText } = render(<App/>);
+  const { queryByText, queryByAltText, getByText, getByLabelText, findByText, findAllByAltText } = render(<App/>);
+
+  expect(queryByText('By:')).not.toBeInTheDocument();
+  expect(queryByText('From the album:')).not.toBeInTheDocument();
+  expect(queryByAltText('Album artwork')).not.toBeInTheDocument();
 
   const getSongButton = getByText('Get Song').closest('button');
   
