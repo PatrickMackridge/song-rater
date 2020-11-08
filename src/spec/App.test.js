@@ -96,15 +96,11 @@ test ('When a song is fetched and displayed users can enter a rating for that so
 
     rateSongButton = queryByText('Save Rating');
     expect(rateSongButton).toBeInTheDocument();
-
-    expect(rateSongButton.closest('button')).toBeDisabled();
-    fireEvent.change(songRating, {target: {value: 10} });
-    expect(rateSongButton.closest('button')).not.toBeDisabled();
   });
 })
 
 test ('Users can save their song rating', async () => {
-  const { getByText, getByLabelText } = render(<App/>);
+  const { getByText, getByLabelText, findByText } = render(<App/>);
 
   const getSongButton = getByText('Get Song').closest('button');
   
@@ -121,6 +117,6 @@ test ('Users can save their song rating', async () => {
 
     fireEvent.change(songRating, {target: {value: 10} });
     fireEvent.click(rateSongButton);
-    
-  }).then(() => getByLabelText('Rating Saved!'));
+    getByText('Rating Saved!');
+  });
 })
