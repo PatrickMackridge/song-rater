@@ -55,3 +55,20 @@ test ('Clicking "Get Song" button fetches data about that song and displays it o
   await findByText('From the album: Head Hunters');
   await findAllByAltText('Album artwork');
 })
+
+test ('Correct error message displays if no song is found', async () => {
+  const { queryByText, getByText, getByLabelText, findByText } = render(<App/>);
+
+  expect(queryByText('No song found, please check your song and artist name to try again.')).not.toBeInTheDocument();
+
+  const getSongButton = getByText('Get Song').closest('button');
+  
+  const artistSearch = getByLabelText('Artist:');
+  const songSearch = getByLabelText('Song:');
+
+  fireEvent.change(artistSearch, {target: {value: 'nobody'} });
+  fireEvent.change(songSearch, {target: {value: 'notarealsong'} });
+  fireEvent.click(getSongButton);
+
+  await findByText('No song found, please check your song and artist name to try again.');
+})
