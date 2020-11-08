@@ -1,6 +1,6 @@
 import { FirebaseDatabaseMutation } from '@react-firebase/database';
 import "firebase/database";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/App.css';
 
 function SongData(props) {
@@ -13,6 +13,11 @@ function SongData(props) {
 
   const [rating, setRating] = useState('');
   const [songSaved, setSongSaved] = useState(false);
+
+  useEffect(() => {
+    setSongSaved(false);
+    setRating('');
+  }, [artistName, songName, albumName, albumImage])
   
   return (
     <>
