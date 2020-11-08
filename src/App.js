@@ -17,14 +17,16 @@ function App() {
     .then(res => {
 
       toggleSongData(true);
-      const track = res.track
-
-      setArtistName(track.artist.name);
-      setSongName(track.name);
-      setAlbumName(track.album.title);
-
-      const imageURL = Object.keys(track.album.image[track.album.image.length -1])[0];
-      setAlbumImage(track.album.image[track.album.image.length -1][imageURL]);
+      
+      if (res.track) {
+        const track = res.track
+        setArtistName(track.artist.name);
+        setSongName(track.name);
+        setAlbumName(track.album.title);
+  
+        const imageURL = Object.keys(track.album.image[track.album.image.length -1])[0];
+        setAlbumImage(track.album.image[track.album.image.length -1][imageURL]);
+      }
     });
   }
 
