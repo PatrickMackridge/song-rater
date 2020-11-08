@@ -24,6 +24,22 @@
   margin: 1%;
 }
 
+.songRater {
+  white-space: nowrap;
+}
+
+.ratingLabel {
+  margin: 2%;
+}
+
+songRating {
+  margin: 2%;
+}
+
+.saveRating {
+  margin: 1%;
+}
+
 p {
   margin: 1%;
 }
