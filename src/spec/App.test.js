@@ -1,4 +1,4 @@
-import { findAllByLabelText, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import App from '../App';
 
@@ -96,9 +96,31 @@ test ('When a song is fetched and displayed users can enter a rating for that so
 
     rateSongButton = queryByText('Save Rating');
     expect(rateSongButton).toBeInTheDocument();
-    
+
     expect(rateSongButton.closest('button')).toBeDisabled();
     fireEvent.change(songRating, {target: {value: 10} });
     expect(rateSongButton.closest('button')).not.toBeDisabled();
   });
+})
+
+test ('Users can save their song rating', async () => {
+  const { getByText, getByLabelText } = render(<App/>);
+
+  const getSongButton = getByText('Get Song').closest('button');
+  
+  const artistSearch = getByLabelText('Artist:');
+  const songSearch = getByLabelText('Song:');
+
+  fireEvent.change(artistSearch, {target: {value: 'Herbie Hancock'} });
+  fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
+  fireEvent.click(getSongButton);
+
+  await waitFor(() =>  {
+    const songRating = getByLabelText('Rate this song:');
+    const rateSongButton = getByText('Save Rating').closest('button');
+
+    fireEvent.change(songRating, {target: {value: 10} });
+    fireEvent.click(rateSongButton);
+    
+  }).then(() => getByLabelText('Rating Saved!'));
 })
