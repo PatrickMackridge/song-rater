@@ -100,7 +100,7 @@ test ('When a song is fetched and displayed users can enter a rating for that so
 })
 
 test ('Users can save their song rating', async () => {
-  const { getByText, getByLabelText, findByText } = render(<App/>);
+  const { getByText, getByLabelText } = render(<App/>);
 
   const getSongButton = getByText('Get Song').closest('button');
   

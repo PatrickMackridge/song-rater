@@ -1,3 +1,7 @@
+import { FirebaseDatabaseProvider } from '@react-firebase/database';
+import firebase from 'firebase/app';
+import "firebase/database";
+import { firebaseConfig } from './config.js'
 import { useState } from 'react';
 import SongData from './Components/SongData';
 import SongSelect from './Components/SongSelect';
@@ -35,13 +39,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        Song Rater
-      </header>
-      <SongSelect fetchSongData={fetchSongData}/>
-  {showSongData && <SongData artistName={artistName} songName={songName} albumName={albumName} albumImage={albumImage}/> }
-    </div>
+    <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
+      <div className="App">
+        <header className="App-header">
+          Song Rater
+        </header>
+        <SongSelect fetchSongData={fetchSongData}/>
+        {showSongData && <SongData artistName={artistName} songName={songName} albumName={albumName} albumImage={albumImage}/> }
+      </div>
+    </FirebaseDatabaseProvider>
   );
 }
 
