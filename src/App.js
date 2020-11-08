@@ -26,6 +26,10 @@ function App() {
   
         const imageURL = Object.keys(track.album.image[track.album.image.length -1])[0];
         setAlbumImage(track.album.image[track.album.image.length -1][imageURL]);
+      } else {
+        setArtistName();
+        setSongName();
+        setAlbumName();
       }
     });
   }
