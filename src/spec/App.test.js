@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { findAllByLabelText, fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import App from '../App';
 
@@ -71,4 +71,30 @@ test ('Correct error message displays if no song is found', async () => {
   fireEvent.click(getSongButton);
 
   await findByText('No song found, please check your song and artist name to try again.');
+})
+
+test ('When a song is fetched and displayed users can enter a rating for that song and save it', async () => {
+  const { queryByText, getByText, getByLabelText, queryByLabelText } = render(<App/>);
+
+  const songRating = queryByLabelText('Rate this song:');
+  expect(songRating).not.toBeInTheDocument();
+  const rateSongButton = queryByText('Save Rating');
+  expect(rateSongButton).not.toBeInTheDocument();
+
+  const getSongButton = getByText('Get Song').closest('button');
+  
+  const artistSearch = getByLabelText('Artist:');
+  const songSearch = getByLabelText('Song:');
+
+  fireEvent.change(artistSearch, {target: {value: 'Herbie Hancock'} });
+  fireEvent.change(songSearch, {target: {value: 'Chameleon'} });
+  fireEvent.click(getSongButton);
+
+  await waitFor(() =>  {
+    expect(songRating).toBeInTheDocument();
+    expect(rateSongButton).toBeInTheDocument();
+    expect(rateSongButton.closest('button')).toBeDisabled();
+    fireEvent.change(songRating, {target: {value: 10} });
+    expect(rateSongButton.closest('button')).not.toBeDisabled();
+  });
 })
