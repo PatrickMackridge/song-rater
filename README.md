@@ -1,7 +1,7 @@
 # Song Rater
 
 ## What it is
-Song Rater is a web app that allows users to give songs of their choice a rating and save them to a database. It allows users to search for a song using the song name and artist and uses the LastFM API to fetch data about that song. Users can then give that song a rating out of 10 and save their score to a Firebase database by clicking that 'Save Rating' button. This app was built as my technical exercise for Build Empire.
+Song Rater is a web app that allows users to give songs of their choice a rating and save them to a database. It allows users to search for a song using the song name and artist and uses the LastFM API to fetch data about that song. Users can then give that song a rating out of 10 and save their score to a Firebase database by clicking that 'Save Rating' button.
 
 ## How to test & run this app locally
 1. Download this repository using `git clone`
